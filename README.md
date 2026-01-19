@@ -1,88 +1,169 @@
-# Job Portal App with MERN Stack
+# CareerConnect
 
-A comprehensive job portal application built using the MERN (MongoDB, Express.js, React.js, Node.js) stack. This application allows users to browse job listings, apply for jobs, and manage their applications seamlessly.
+CareerConnect is a MERN-stack job portal that connects employers with job seekers. Employers can post jobs and manage applicants, while job seekers can browse listings, apply, and track their applications.
 
 ## Features
 
-- **User Authentication:** Secure authentication using JWT (JSON Web Tokens) for both job seekers and employers.
-- **Job Listings:** Browse through a wide range of job listings fetched from MongoDB.
-- **Application Management:** Job seekers can manage their job applications, and employers can view and manage received applications.
-- **Responsive Design:** Ensures a seamless experience across all devices.
+### 👤 User Accounts
+- Register & Login with JWT authentication
+- Role-based access control (Job Seeker / Employer)
 
-## Technologies Used
+### 💼 For Employers
+- Post new job listings
+- Edit or delete posted jobs
+- View applications from job seekers
 
-- **Frontend:** React.js, React Router, Bootstrap
-- **Backend:** Node.js, Express.js, MongoDB
-- **Authentication:** JWT (JSON Web Tokens), Bcrypt (for password hash)
-- **Image Upload:** Cloudinary for storing and managing uploaded images
-- **Deployment:** Vercel (frontend), Render(backend), MongoDB Atlas (database)
+### 📄 For Job Seekers
+- Browse available jobs
+- View job details
+- Apply with resume upload (Cloudinary storage)
+- View and delete submitted applications
 
-## Getting Started
+## Tech Stack
 
-To get a local copy up and running follow these simple steps.
+### Frontend
+- React (Context API + Router)
+- Axios
+- react-hot-toast
 
-### Prerequisites
+### Backend
+- Node.js + Express
+- MongoDB + Mongoose
+- JWT + bcrypt
+- Cloudinary (resume storage)
 
-- Node.js installed on your machine with latest version or v22.2.0 above
-- MongoDB Atlas account (or local MongoDB server)
-- Cloudinary account for image storage
+---
 
-### Installation
+## Folder Structure
 
-1. Clone the repo:
-   ```sh
-   git clone https://github.com/exclusiveabhi/react-job-portal.git
-   ```
-2. Install NPM packages:
+```
+CareerConnect/
+ ├── backend/
+ │   ├── controllers/
+ │   ├── models/
+ │   ├── routes/
+ │   ├── database/
+ │   ├── middlewares/
+ │   ├── utils/
+ │   ├── app.js
+ │   └── server.js
+ └── frontend/
+     ├── node_modules/
+     ├── public/
+     ├── src/
+     │   ├── components/
+     │   │   ├── Application/
+     │   │   ├── Auth/
+     │   │   ├── Home/
+     │   │   ├── Job/
+     │   │   ├── Layout/
+     │   │   └── NotFound/
+     │   ├── App.css
+     │   ├── App.jsx
+     │   └── main.jsx
+     ├── index.html
+     └── .eslintrc.cjs
 
-   ```sh
-   cd react-job-portal
-   cd backend
-   npm install
-   cd..
-   cd frontend
-   npm install
-   ```
+```
 
-3. ## If you don't want to change the`.env` credentials skip step 4 and move to step 5.
+---
 
-4. Set up environment variables:
+## Environment Variables
 
-   - Create a `config.env` file after creating a `config folder` in the backend directory, containing the following variables:
+### Backend `.env` example:
+```
+PORT=4000
+DB_URL=mongodb://localhost:27017
+JWT_SECRET_KEY=your_jwt_secret
+JWT_EXPIRE=5d
 
-   ```env
-   PORT=
-   CLOUDINARY_API_KEY=
-   CLOUDINARY_API_SECRET=
-   CLOUDINARY_CLOUD_NAME=
-   FRONTEND_URL=
-   DB_URL=
-   JWT_SECRET_KEY=
-   JWT_EXPIRE=
-   COOKIE_EXPIRE=
-   ```
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
 
-   Replace each value with your specific configuration details.
+FRONTEND_URL=http://localhost:5173
+```
 
-5. Run the application backend (make sure you are in `/backend` directory) :
+---
 
-   ```sh
-   node server.js
-   ```
+## Installation
 
-6. Run the application frontend (make sure you are in `/frontend` directory) :
-   ```sh
-   npm run dev
-   ```
-7. Open your browser and navigate to `http://localhost:5173` to view the app.
+### 1. Clone the repository
+```bash
+git clone <repo-link>
+cd CareerConnect
+```
 
-## Contributing
+### 2. Backend Setup
+```bash
+cd backend
+npm install
+npm run dev
+```
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+### 3. Frontend Setup
+```bash
+cd ../frontend
+npm install
+npm run dev
+```
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request (`we will merge within 24 hour`)
+---
+
+## API Endpoints
+
+### User Routes
+```
+POST /api/v1/user/register
+POST /api/v1/user/login
+GET  /api/v1/user/logout
+GET  /api/v1/user/getuser
+```
+
+### Job Routes
+```
+GET    /api/v1/job/getall
+POST   /api/v1/job/post
+GET    /api/v1/job/getmyjobs
+PUT    /api/v1/job/update/:id
+DELETE /api/v1/job/delete/:id
+GET    /api/v1/job/:id
+```
+
+### Application Routes
+```
+POST   /api/v1/application/post
+GET    /api/v1/application/employer/getall
+GET    /api/v1/application/jobseeker/getall
+DELETE /api/v1/application/delete/:id
+```
+
+---
+
+## Authentication Flow
+
+- Login sets a JWT token in an HTTP-only cookie
+- Protected routes use `isAuthenticated`
+- Roles enforce Job Seeker vs Employer behavior
+
+---
+
+## Resume Upload Handling
+
+- Only PNG/JPEG/WEBP formats allowed
+- Cloudinary handles storage & secure URL delivery
+- Frontend shows resume preview in modal
+
+---
+
+## Future Enhancements
+
+- PDF support for resumes
+- Job filters & search
+- Pagination
+- Email notifications
+- Company profile pages
+
+
+
 
